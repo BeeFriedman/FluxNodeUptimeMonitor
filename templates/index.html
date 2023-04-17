@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" href="/static/style.css">
+        <script src="/static/jquery-3.6.3.min.js"></script>
+    </head>
+    <body>
+        <div id="header">
+            <h1 id="title">Welcome!</h1>
+        </div>
+        <div id="main">
+            <div id="filter">
+                <label for="wallet">Wallet Address</label>
+                <input id="wallet" placeholder="Enter Wallet Address" value="{{wallet}}">           
+                <button onclick="walletSearch()">Search Wallet</button>
+            </div>
+        </div>
+        <script>
+            function walletSearch() {
+            wallet = $("#wallet").val();
+            const url = "{{ url_for('index') }}" + "?wallet=" + wallet;
+            window.location.href = url;
+            }           
+        </script> 
+    </body>
+</html>

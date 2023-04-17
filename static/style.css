@@ -1,0 +1,63 @@
+body {
+margin: 0%;
+background-color: #121212;
+color: #FFFFFF;
+}
+
+#header {
+height: 20vh;
+width: 100%;
+background-color: #222222;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+#title {
+color: #FFFFFF;
+height: auto;
+width: auto;
+margin: auto;
+text-align: center;
+}
+
+table {
+width: 80%;
+margin: auto;
+margin-top: 50px;
+border-spacing: 0;
+}
+
+th,
+td {
+padding: 10px;
+}
+
+table,
+th,
+td {
+border: 1px solid #FFFFFF;
+border-collapse: collapse;
+}
+
+#filter {
+border: solid #FFFFFF 1px;
+max-width: 40%;
+margin: auto;
+margin-top: 35px;
+padding: 0.5%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+#filter > input {
+flex-grow: 1;
+width: 0;
+margin-right: 3%;
+margin-left: 1%;
+background-color: #222222;
+color: #FFFFFF;
+border: none;
+padding: 5px;
+}
