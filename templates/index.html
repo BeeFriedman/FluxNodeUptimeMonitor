@@ -1,7 +1,9 @@
 <!DOCTYPE html>
     <head>
+        <link rel="icon" href="/static/favicon.png">
         <link rel="stylesheet" href="/static/style.css">
         <script src="/static/jquery-3.6.3.min.js"></script>
+        <title>Flux Node Monitor</title>
     </head>
     <body>
         <div id="header">
@@ -15,12 +17,26 @@
                 <button onclick="walletSearch()">Search Wallet</button>
             </div>
         </div>
+        <div id="popUp">
+            <p>Invalid Wallet Address!</p>
+        </div>
+          
         <script>
             function walletSearch() {
-            wallet = $("#wallet").val();
-            const url = "{{ url_for('index') }}" + "?wallet=" + wallet;
-            window.location.href = url;
-            }           
+                wallet = $("#wallet").val();
+                const url = "{{ url_for('index') }}" + "?wallet=" + wallet;
+                window.location.href = url;
+            } 
+            $(document).ready(function () {
+                if("{{popUp}}" == "True")
+                    popUp();
+                function popUp() {
+                    $("#popUp").addClass("show");
+                    setTimeout(function() {
+                        $("#popUp").removeClass("show");
+                    }, 3000);
+                }
+            });   
         </script> 
     </body>
 </html>

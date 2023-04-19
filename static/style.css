@@ -42,3 +42,24 @@ color: #FFFFFF;
 border: none;
 padding: 5px;
 }
+#popUp {
+    position: fixed;
+    bottom: 0;
+    left: -325px;
+    width: 300px;
+    margin: 20px;
+    background-color: rgb(220, 14, 14);
+    border: 1px solid black;
+    border-radius: 5px;
+    transition: left 0.5s ease-in-out;
+  }
+  
+  #popUp.show {
+    left: 0;
+  }
+
+  #popUp > p {
+    width:100%;
+    text-align:center;
+  }
+  

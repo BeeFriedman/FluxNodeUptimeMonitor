@@ -6,8 +6,9 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     wallet = request.args.get('wallet')
+    popUp = False
 
-    if wallet == None:
+    if wallet == None or wallet == '':
         wallet = ''
     else:
         url = 'https://api.runonflux.io/daemon/validateaddress'
@@ -18,6 +19,8 @@ def index():
             # API call was successful
             data = response.json()
             valid = data['data']['isvalid']
-            app.logger.debug(valid)      
-        
-    return render_template('index.html', wallet = wallet)
+            app.logger.debug(valid) 
+            if valid == False:
+                popUp = True     
+    app.logger.debug(popUp)
+    return render_template('index.html', wallet = wallet, popUp = popUp)
