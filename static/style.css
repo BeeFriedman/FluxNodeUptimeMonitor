@@ -4,6 +4,10 @@ background-color: #121212;
 color: #FFFFFF;
 }
 
+#main{
+    height: calc(90vh - 35px);
+}
+
 #header {
 height: 10vh;
 width: 100%;
@@ -41,6 +45,24 @@ background-color: #222222;
 color: #FFFFFF;
 border: none;
 padding: 5px;
+}
+table{
+    min-height: 60%;
+    width: 80%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-spacing: 0;
+    border: 1px solid white;
+    border-radius: 15px;
+    table-layout: fixed;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+th{
+    border-bottom: 1px solid white;
 }
 #popUp {
     position: fixed;

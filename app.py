@@ -7,6 +7,7 @@ app = Flask(__name__)
 def index():
     wallet = request.args.get('wallet')
     popUp = False
+    nodeList = [{'tier': '', 'ip': 'No nodes are running on this wallet address', 'rank': ''}]
 
     if wallet == None or wallet == '':
         wallet = ''
@@ -19,8 +20,20 @@ def index():
             # API call was successful
             data = response.json()
             valid = data['data']['isvalid']
-            app.logger.debug(valid) 
             if valid == False:
-                popUp = True     
-    app.logger.debug(popUp)
-    return render_template('index.html', wallet = wallet, popUp = popUp)
+                popUp = True 
+            elif valid == True:
+                nodeList = getNodeList(wallet)
+
+    return render_template('index.html', wallet = wallet, popUp = popUp, nodeList = nodeList)
+
+def getNodeList(wallet):
+    url = 'https://api.runonflux.io/daemon/listzelnodes'
+    params = {'filter': wallet}
+    response = requests.get(url, params=params)
+
+    if response.status_code == 200:
+        # API call was successful
+        data = response.json()
+        nodeList = data['data']
+        return nodeList

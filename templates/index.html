@@ -16,9 +16,28 @@
                 <input id="wallet" placeholder="Enter Wallet Address" value="{{wallet}}">           
                 <button onclick="walletSearch()">Search Wallet</button>
             </div>
-        </div>
-        <div id="popUp">
-            <p>Invalid Wallet Address!</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Ip Address</th>
+                        <th>Rank</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for node in nodeList %}
+                    <tr>
+                        <td>{{ node.tier }}</td>
+                        <td>{{ node.ip }}</td>
+                        <td>{{ node.rank }}</td>                       
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div id="popUp">
+                <p>Invalid Wallet Address!</p>
+            </div>
         </div>
           
         <script>
