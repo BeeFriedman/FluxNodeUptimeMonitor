@@ -23,6 +23,7 @@
                         <th>Tier</th>
                         <th>Ip Address</th>
                         <th>Rank</th>
+                        <th>Node Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +31,8 @@
                     <tr>
                         <td>{{ node.tier }}</td>
                         <td>{{ node.ip }}</td>
-                        <td>{{ node.rank }}</td>                       
+                        <td>{{ node.rank }}</td> 
+                        <td><img src="{{node.status}}" class="statusImage"></td>                      
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -31,8 +31,14 @@ def index():
 
             if ip.find(':') == -1:
                 ip = ip + ':16127'
-            status = getBenchmarkResults(ip)     
-        #app.logger.debug(nodeList)
+            status = getBenchmarkResults(ip)
+
+            if status == 'failed':
+                status = '/static/cancel-icon.svg'
+            else:
+               status = '/static/green-checkmark-line-icon.svg'    
+            node['status'] = status;     
+    
     return render_template('index.html', wallet = wallet, popUp = popUp, nodeList = nodeList)
 
 def getNodeList(wallet):
@@ -50,6 +56,6 @@ def getBenchmarkResults(ip):
     url = 'http://{0}/daemon/getbenchmarks'.format(ip)
     response = requests.get(url)
     data = response.json()
-    status = json.loads(data['data'])
-    app.logger.debug(status['status'])
+    innerData = json.loads(data['data'])
+    status = innerData['status']
     return status
