@@ -26,18 +26,18 @@ def index():
             elif valid == True:
                 nodeList = getNodeList(wallet)
 
-        for node in nodeList:
-            ip = node['ip']
+                for node in nodeList:
+                    ip = node['ip']
 
-            if ip.find(':') == -1:
-                ip = ip + ':16127'
-            status = getBenchmarkResults(ip)
+                    if ip.find(':') == -1:
+                        ip = ip + ':16127'
+                    status = getBenchmarkResults(ip)
 
-            if status == 'failed':
-                status = '/static/cancel-icon.svg'
-            else:
-               status = '/static/green-checkmark-line-icon.svg'    
-            node['status'] = status;     
+                    if status == 'failed':
+                        status = '/static/cancel-icon.svg'
+                    else:
+                        status = '/static/green-checkmark-line-icon.svg'    
+                        node['status'] = status;     
     
     return render_template('index.html', wallet = wallet, popUp = popUp, nodeList = nodeList)
 

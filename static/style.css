@@ -17,6 +17,10 @@ align-items: center;
 justify-content: center;
 }
 
+#header > img {
+  height: 5vh;
+}
+
 #title {
 color: #FFFFFF;
 height: auto;
