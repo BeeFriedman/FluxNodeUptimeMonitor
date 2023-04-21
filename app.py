@@ -1,61 +1,27 @@
 from flask import Flask, render_template, request
-import requests
-import json
+from Wallet import Wallet
+from Node import Node
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    wallet = request.args.get('wallet')
-    popUp = False
-    nodeList = [{'tier': '', 'ip': 'No nodes are running on this wallet address', 'rank': ''}]
+    wallet_address = request.args.get('wallet', '')
+    pop_up = False
+    node_list = [{'tier': '', 'ip': 'No nodes are running on this wallet address', 'rank': ''}]
 
-    if wallet == None or wallet == '':
-        wallet = ''
-    else:
-        url = 'https://api.runonflux.io/daemon/validateaddress'
-        params = {'zelcashaddress' : wallet}
-        response = requests.get(url, params=params)
+    if wallet_address:
+        wallet = Wallet(wallet_address)
+        if not wallet.is_valid():
+            pop_up = True
+        else:
+            node_list = [Node(node['ip']) for node in wallet.get_node_list()]
+            for node in node_list:
+                status = node.get_benchmark_results()
+                if status == 'failed':
+                    status = '/static/cancel-icon.svg'
+                else:
+                    status = '/static/green-checkmark-line-icon.svg'    
+            node['status'] = status;  
 
-        if response.status_code == 200:
-            # API call was successful
-            data = response.json()
-            valid = data['data']['isvalid']
-            if valid == False:
-                popUp = True 
-            elif valid == True:
-                nodeList = getNodeList(wallet)
-
-                for node in nodeList:
-                    ip = node['ip']
-
-                    if ip.find(':') == -1:
-                        ip = ip + ':16127'
-                    status = getBenchmarkResults(ip)
-
-                    if status == 'failed':
-                        status = '/static/cancel-icon.svg'
-                    else:
-                        status = '/static/green-checkmark-line-icon.svg'    
-                        node['status'] = status;     
-    
-    return render_template('index.html', wallet = wallet, popUp = popUp, nodeList = nodeList)
-
-def getNodeList(wallet):
-    url = 'https://api.runonflux.io/daemon/listzelnodes'
-    params = {'filter': wallet}
-    response = requests.get(url, params=params)
-
-    if response.status_code == 200:
-        # API call was successful
-        data = response.json()
-        nodeList = data['data']
-        return nodeList
-    
-def getBenchmarkResults(ip):
-    url = 'http://{0}/daemon/getbenchmarks'.format(ip)
-    response = requests.get(url)
-    data = response.json()
-    innerData = json.loads(data['data'])
-    status = innerData['status']
-    return status
+    return render_template('index.html', wallet=wallet_address, pop_up=pop_up, node_list=node_list)
