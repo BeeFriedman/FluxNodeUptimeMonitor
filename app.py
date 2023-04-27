@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 from Wallet import Wallet
 from Node import Node
-import requests
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 
@@ -27,3 +27,11 @@ def index():
             node_output = [n.to_dict() for n in node_list]
 
     return render_template('index.html', wallet=wallet_address, pop_up=pop_up, node_output=node_output)
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    if isinstance(e, HTTPException):
+        if(404):
+            return render_template('404.html'), 404
+        return e
+    return render_template("500.html"), 500
