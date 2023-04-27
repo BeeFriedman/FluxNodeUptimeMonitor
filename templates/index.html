@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for node in nodeList %}
+                    {% for node in node_output %}
                     <tr>
                         <td>{{ node.tier }}</td>
                         <td>{{ node.ip }}</td>
@@ -49,7 +49,7 @@
                 window.location.href = url;
             } 
             $(document).ready(function () {
-                if("{{popUp}}" == "True")
+                if("{{pop_up}}" == "True")
                     popUp();
                 function popUp() {
                     $("#popUp").addClass("show");
