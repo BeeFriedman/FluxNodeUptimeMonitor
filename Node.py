@@ -8,6 +8,7 @@ class Node:
         self.rank = rank
         self.status = None
 
+    #makes an api call to get the status of the node returns the status.
     def get_benchmark_results(self):
         if ':' not in self.ip:
             self.ip += ':16127'

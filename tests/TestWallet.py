@@ -13,6 +13,3 @@ class TestWallet(unittest.TestCase):
         wallet = Wallet('t1NGCodd8fdGfbxyENtmHQ4yrVYqQ2Rbf98')
         node_list = wallet.get_node_list()
         self.assertIsInstance(node_list, list)
-
-if __name__ == '__main__':
-    unittest.main()  

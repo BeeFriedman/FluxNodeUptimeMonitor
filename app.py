@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request
 from Wallet import Wallet
 from Node import Node
 from werkzeug.exceptions import HTTPException
@@ -11,6 +11,10 @@ def index():
     pop_up = False
     node_output = [{'tier': '', 'ip': 'No nodes are running on this wallet address', 'rank': ''}]
 
+    #if user searched for a wallet address, verify if it's valid.
+    #if not valid set pop_up to true to trigger the invalid wallet popup
+    #else check if there are nodes on the wallet.
+    #if there is check their status and display it.
     if wallet_address:
         wallet = Wallet(wallet_address)
         if not wallet.is_valid():
