@@ -46,23 +46,24 @@
         </div>
           
         <script>
+            function popUp() {
+                $("#popUp").addClass("show");
+                setTimeout(function() {
+                    $("#popUp").removeClass("show");
+                }, 3000);
+            }
+            function walletSearch() {
+                wallet = $("#wallet").val();
+                const url = "{{ url_for('index') }}" + "?wallet=" + wallet;
+                window.location.href = url;
+            }             
             $(document).ready(function () {
+ 
                 if("{{pop_up}}" == "True")
                     popUp();
                 
-                if("{{noList}}" == "True")
-                    $("noList").css("display", "block");  
-                function popUp() {
-                    $("#popUp").addClass("show");
-                    setTimeout(function() {
-                        $("#popUp").removeClass("show");
-                    }, 3000);
-                }
-                function walletSearch() {
-                    wallet = $("#wallet").val();
-                    const url = "{{ url_for('index') }}" + "?wallet=" + wallet;
-                    window.location.href = url;
-                }                 
+                if("{{empty}}" == "True")
+                    $("#noList").css("display", "table-row");  
             });   
         </script> 
     </body>
