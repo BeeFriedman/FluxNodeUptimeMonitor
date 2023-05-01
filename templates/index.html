@@ -30,11 +30,14 @@
                     {% for node in node_output %}
                     <tr>
                         <td>{{ node.tier }}</td>
-                        <td>{{ node.ip }}</td>
+                        <td><a href="{{node.ip}}">{{ node.ip }}</a></td>
                         <td>{{ node.rank }}</td> 
                         <td><img src="{{node.status}}" class="statusImage"></td>                      
                     </tr>
                 {% endfor %}
+                    <tr id="noList">
+                        <td colspan="4">No nodes are running on this wallet address</td>
+                    </tr>
                 </tbody>
             </table>
             <div id="popUp">
@@ -43,20 +46,23 @@
         </div>
           
         <script>
-            function walletSearch() {
-                wallet = $("#wallet").val();
-                const url = "{{ url_for('index') }}" + "?wallet=" + wallet;
-                window.location.href = url;
-            } 
             $(document).ready(function () {
                 if("{{pop_up}}" == "True")
                     popUp();
+                
+                if("{{noList}}" == "True")
+                    $("noList").css("display", "block");  
                 function popUp() {
                     $("#popUp").addClass("show");
                     setTimeout(function() {
                         $("#popUp").removeClass("show");
                     }, 3000);
                 }
+                function walletSearch() {
+                    wallet = $("#wallet").val();
+                    const url = "{{ url_for('index') }}" + "?wallet=" + wallet;
+                    window.location.href = url;
+                }                 
             });   
         </script> 
     </body>

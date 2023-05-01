@@ -91,4 +91,7 @@ th{
   .statusImage {
     width: 25px;
   }
+  #noList {
+    display: none;
+  }
   

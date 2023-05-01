@@ -9,7 +9,7 @@ app = Flask(__name__)
 def index():
     wallet_address = request.args.get('wallet', '')
     pop_up = False
-    node_output = [{'tier': '', 'ip': 'No nodes are running on this wallet address', 'rank': ''}]
+    empty = False
 
     #if user searched for a wallet address, verify if it's valid.
     #if not valid set pop_up to true to trigger the invalid wallet popup
@@ -20,6 +20,7 @@ def index():
         if not wallet.is_valid():
             pop_up = True
         else:
+            node_output = []
             node_list = [Node(n['tier'], n['ip'], n['rank']) for n in wallet.get_node_list()]
             for node in node_list:
                 status = node.get_benchmark_results()
@@ -29,8 +30,10 @@ def index():
                     status = '/static/green-checkmark-line-icon.svg'
                 node.set_status(status)
             node_output = [n.to_dict() for n in node_list]
+            if not len(node_output):
+                empty = True
 
-    return render_template('index.html', wallet=wallet_address, pop_up=pop_up, node_output=node_output)
+    return render_template('index.html', wallet=wallet_address, pop_up=pop_up, node_output=node_output, empty=empty)
 
 @app.errorhandler(Exception)
 def handle_exception(e):
