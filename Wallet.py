@@ -1,4 +1,4 @@
-qimport requests
+import requests
 
 class Wallet:
     FLUX_API_URL = 'https://api.runonflux.io/daemon/'
