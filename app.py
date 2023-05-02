@@ -24,13 +24,14 @@ def index():
             node_list = [Node(n['tier'], n['ip'], n['rank']) for n in wallet.get_node_list()]
             for node in node_list:
                 status = node.get_benchmark_results()
-                app.logger.debug(status)
+
                 if status == 'failed':
                     status = '/static/cancel-icon.svg'
                 elif status == 'N/A':
                     status = '/static/question-mark.svg'
                 else:
                     status = '/static/green-checkmark-line-icon.svg'
+                node.set_status(status)
             node_output = [n.to_dict() for n in node_list]
     if not len(node_output):
         empty = True
