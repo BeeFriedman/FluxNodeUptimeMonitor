@@ -3,22 +3,24 @@ import requests
 
 class Node:
     def __init__(self, tier, ip, rank):
-        self.ip = ip
         self.tier = tier
         self.rank = rank
         self.status = None
+        if ':' not in ip:
+            self.ip = ip +':16127'
+        else:
+            self.ip = ip
+        self.href = 'http://' + self.ip[:-1] + '6'
 
     #makes an api call to get the status of the node returns the status.
     def get_benchmark_results(self):
-        if ':' not in self.ip:
-            self.ip += ':16127'
-        
         url = f'http://{self.ip}/daemon/getbenchmarks'
-        response = requests.get(url)
-        response.raise_for_status()
-
-        data = json.loads(response.json()['data'])
-        return data['status']
+        try:
+            response = requests.get(url)
+            data = json.loads(response.json()['data'])
+            return data['status']
+        except:
+            return 'N/A'
 
     def set_status(self, status):
         self.status = status
@@ -28,7 +30,8 @@ class Node:
             'tier': self.tier,
             'ip': self.ip,
             'rank': self.rank,
-            'status': self.status
+            'status': self.status,
+            'href': self.href
         }
     
     

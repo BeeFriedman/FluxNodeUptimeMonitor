@@ -30,7 +30,7 @@
                     {% for node in node_output %}
                     <tr>
                         <td>{{ node.tier }}</td>
-                        <td><a href="http://{{node.ip}}/daemon/getbenchmarks">{{ node.ip }}</a></td>
+                        <td><a href="{{node.href}}">{{ node.ip }}</a></td>
                         <td>{{ node.rank }}</td> 
                         <td><img src="{{node.status}}" class="statusImage"></td>                      
                     </tr>
