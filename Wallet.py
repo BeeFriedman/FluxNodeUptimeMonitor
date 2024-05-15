@@ -10,7 +10,7 @@ class Wallet:
 
     #makes an api request to check if the wallet is vaild and returns a boolean value.
     def is_valid(self):
-        params = {'zelcashaddress': self.address}
+        params = {'fluxaddress': self.address}
         response = requests.get(Wallet.FLUX_API_URL + Wallet.VALIDATE_ADDRESS_ENDPOINT, params=params)
         response.raise_for_status()
         data = response.json()
