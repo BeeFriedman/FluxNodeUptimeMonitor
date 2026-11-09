@@ -37,6 +37,9 @@ def index():
         empty = True
     return render_template('index.html', wallet=wallet_address, pop_up=pop_up, node_output=node_output, empty=empty)
 
+@app.route('/bee')
+def index():
+    return render_template('bee.html')
 @app.errorhandler(Exception)
 def handle_exception(e):
     if isinstance(e, HTTPException):
